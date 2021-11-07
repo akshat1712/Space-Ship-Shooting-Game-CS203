@@ -1,0 +1,79 @@
+CS203-Submission 2: Spaceship Game on FPGA
+
+Members:
+	Pranavkumar Mallela - 2020CSB1112
+	Akshat Sinha - 2020CSB1068
+
+Inputs:
+	Cannons: 16 sliding switches
+	Reset: 1 push button
+	Quit: 1 push button
+
+Outputs:
+	Current score: 7 segment display on FPGA board
+	Maximum score in a particular gameplay: 7 segment display
+	Spaceship: 3 consecutive LEDs
+
+Functionality:
+	1. Spaceship: 
+		Length: 3 LEDs long
+		Speed: 2 LEDs per second
+		Motion: Enters from the left, exits from the right, then re enters from the left.
+			Each position will be referenced by 4 bits (numbered from 0000 to 1111) 
+			Let us say x is the rightmost LED of the spaceship. Then, x will move through the following states: 2, 4, 6, 8, 10, 12, 14. (repeats until the game ends)
+
+	2. Score:
+		Display of Score: CS:MS (current score:maximum score)
+		Max score possible: 99, so bit width = 7
+		Change:
+			Firstly , all OFF LEDs are checked and then three ON LEDs are checked 
+			Increase: If a button is pressed where the LED is lit, score is incremented by 1.
+			Decrease: If a button is pressed where the LED is off, health is decremented by 1.
+			No change: If no button is pressed, the score remains the same.
+		Health: The user gets a finite number of lives (5). After 5 misses, the game ends.
+
+Scoping:
+	Increase speed: 1 push button will be used to increase speed by 1 LED per second
+	Decrease speed: 1 push button will be used to decrease speed by 1 LED per second. (min speed is default: 2 LEDs per second)
+	Game mode-2: Spaceship travels from 0th LED to 15th LED, and then back from 15th LED to 0th LED (1 push button can switch the game mode)
+	Game mode-3: Spaceship appears at a random location (at LEDs 0-15) continuously.
+
+
+Modules and their Hierarchy:
+
+Module Spaceship_LED: 
+	Inputs: default_state, clk, rst
+		default_state( 4-bit ) : State to be assigned to out_state when reset=1
+		clk( 1-bit) : Clock signal
+		rst(1-bit) ( output of Reset) : reset the gameplay
+ 	Outputs: out_state
+		out_state( 4- bit) : State that defines the location of the spaceship currently
+Module Score:
+	Inputs: 
+		curr_score( 7-bit ) : Current score of the player
+		action_type ( 2-bit) ( output of check ) : Tells which of given three actions are performed
+			00 : When button is pressed at wrong position 
+			01 : When button is pressed at right position
+			10 :  When no button is pressed
+			11 : Don’t Care
+		Max_score ( 7- bit) : maximum score of the player in that gameplay
+	Outputs: 
+		new_score( 7-bit ) : new score of the player
+		new_max_score ( 7- bit) : new maximum score of the player in that gameplay
+Module Check: 
+	Inputs:  
+		State ( 4-bit) ( output of Spaceship_LED) : the current state of LED as defined under Spaceship motion functionality
+	Outputs:
+		action_type( 2-bit) : outputs one of the 3 action types as defined above in module score
+Module Reset: 
+	Inputs:  
+		button_state( 1- bit): tells if button is pressed or not
+	Outputs:
+		rst( 1-bit): variable to reset the game
+Module Quit: 
+	Inputs: 
+		button_state( 1- bit): tells if button is pressed or not
+	Outputs:
+		qut( 1-bit): variable to quit the game
+
+
