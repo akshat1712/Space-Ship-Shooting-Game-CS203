@@ -3,6 +3,7 @@
 module decoder(
     digit_bcd, seg_l);
     
+    // decoder outputs a seven bit cathode value depending which digit we have to show , input of digit is done in BCD format
     input [3:0] digit_bcd;
     output reg [6:0] seg_l;
     always@( digit_bcd) begin
