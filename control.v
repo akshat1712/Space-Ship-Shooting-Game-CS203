@@ -2,7 +2,10 @@
 
 module control (clk,rst_button,game_mode1_button,game_mode2_button,led,buttons,an,seg);
 
-  // control module is the Top level module which calls other module and acts like a testbench for our game
+  // clk is passed in each module and has a frequency of 1000 Mhz , 10^ Hz
+  
+  // control module is the Top level module which calls other module and acts like a testbench for our game and works likes an abstraction for the game
+  
  // rst_buttons takes input from FPGA
 input clk, rst_button;
 input [15:0] buttons;
@@ -11,12 +14,14 @@ input [15:0] buttons;
 input game_mode1_button,game_mode2_button;
 
   // seg contains the cathode value for Seven segment display
-  // an tells which Anode we have to switch so that a segment display can grow
+  // an tells which Anode we have to switch so that a 7-segment display can grow 
+  // an will look like an one-hot encoding binary value as we can work on only one segment display at a time
 output wire [6:0] seg;
 output wire [ 3:0] an;
 output wire [15:0] led; 
 
 // All the below variables stores / passes information from one module to another module 
+// name of each variable depicts the use of it in the simulation
 wire [6:0] score ;
 wire [6:0] max_score;
 wire [3:0] state;
