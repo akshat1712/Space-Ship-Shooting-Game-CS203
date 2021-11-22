@@ -35,7 +35,7 @@ wire game_mode2;
 
 
 // we are calling the specigic modules in a specific order to make our game work properly
-reset dut0(rst_button,rst, clk);  
+  reset dut0(rst_button,rst, clk);   
 
 game_mode dut2( game_mode1_button,game_mode2_button,game_mode1,game_mode2,clk );
 
