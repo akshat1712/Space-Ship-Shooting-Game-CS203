@@ -12,3 +12,4 @@ Files with commit message "Final_code_submission" or "updated_commenting" are fi
  In this game, 3 consecutive leds will glow out of 16 leds present on the board , these 3 leds move in linear order or in pseudo-random order depending upon the game mode. Game mode can be chosen using the corresponding push buttons.
  There are 16 switches from which the user can shoot ( toggling the switch to on condition ) and if position of leds and switch match, score increases by one. Otherwise, if user misses, score decreases by one. Upon pressing reset, current score is set to zero. Range of score is from 0-99. We also display current score in this game and maximum score obtained in this simulation until now, using the seven segment display of the FPGA board.
 
+For more info, do check out our Project Report.
