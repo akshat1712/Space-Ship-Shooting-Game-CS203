@@ -1,4 +1,4 @@
-# CS203-Project_2020CSB1068_2020CSB1112  
+# CS203-Project
 
 Team Members
 1. Akshat Toolaj Sinha - 2020CSB1068
